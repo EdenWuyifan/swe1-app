@@ -2,7 +2,7 @@ from django.test import TestCase
 
 # Create your tests here.
 
-from polls.models import *
+from .models import *
 from django.utils import timezone
 
 class ModelTestCase(TestCase):
