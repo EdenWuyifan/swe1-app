@@ -8,6 +8,7 @@ install:
 
 before_script:
   - cd mysite
+  - python manage.py makemigrations
   - python manage.py migrate
 
 script:
