@@ -1,20 +1,27 @@
 language: python
-
 python:
-  - 3.7
-
+- 3.7
 install:
-  - pip install -r requirements.txt
-
+- pip install -r requirements.txt
 before_script:
-  - cd mysite
-  - python manage.py makemigrations
-  - python manage.py migrate
-
+- cd mysite
+- python manage.py makemigrations
+- python manage.py migrate
 script:
-  - black --check .
-  - flake8 .
-  - coverage run --source=polls manage.py test
-
+- black --check .
+- flake8 .
+- coverage run --source=polls manage.py test
 after_script:
-  - coveralls
+- coveralls
+deploy:
+  provider: elasticbeanstalk
+  access_key_id:
+    secure: R4nzLdkMB0ZCNiRBLU++iJailI8n3VXC1mlruGV2Yr7uG315mmX3x8+Ck+IczJrr3c/oaP+qzGv+kW5erdA4eYBu7uLBJmys+B4ONNh22KI/T2FI4+oK32uTZMjasKRDYheBseYWBMG2Aet+J/0FQxPF2UzF0ar7Pjv/y+TgMczzR7FrlMdDD6qpBt4byye74Hna1wqSrjTsjnaXejE8HIFtRJrynRdcgU8MdyEOtsZEdWESvEX4LT+MHfdl2fzdODMskHuPIFcwsqMqy9lxjkRZDOlSRaM3HN/K8esfpf1lQWh7OILsMwsjPmBsIvhKE4qY8Z7H4Z7FLqQ1C2rxY8aZ25XKuZzhtJZKwaCzZNSCLmDPMn7AUhI04gq0hkua7cafSeL2YAdWeW2ZSHD49HFsy6Ri0y3p8MrNKBKLbiMC5jjWrvf/SmB/I2WE1gQ8HebnRo0L8OK1e6aPSZW6Il9RV+ca4TxzE7BasErCD4feBNSEe2Nm8E9N6UBUK8utjUQ+n1dWMetHj9dlYbDIyuU8/+1qib4YtOD5D/1Y9Du4niNnmBcdKLiMQi4efmCUhtkiMx6XUyl5OYICzCVBoLA+NFEKbZZRcy2bDwekeYdEeOm1kQFdxjHVloUklmen3VQmke4I8HxhXMPLdlbfn86ZqC3oZfdlY1s5hIga4KE=
+  secret_access_key:
+    secure: xYH58FugMOj/HMTXJHXPVTSDuEvRD7jgxch1hGZ81ac+CgZP9t6UsNVjg4XgJXNu7tZZnLLE0/L3fCHUHeT7RaYrMWDa+XjkxlbmqMGXtIX/3UmmahWr3W4RZdhx2k1cBDtlQUMejL7bX62gfGzFMPJnqKZurRpjMlaPbyC6Lod+gD55EUL4cdV6sukWCEjVrROsVbdC854OId0Mbsh3qMfb06hSIctegm/vtiQOoLb2Hdg7FoiNyfFGMjAQXhbfgzqD5HGAT21hly7sbORCFdgTuXVoTmC5lJhFY7lFwdoYdrNfy+cGNvUOV02KYaI5TaaNwcs2Ei9G8+vnMprX7VYeVMVr6cIHQGV8Wmkcm5V4PV3kvF+CWTMglcQDxPTQiD+vBAUF2AdYKvy3SRKdJq09KFSrptU/pEKzCFN8Z0uUglLuJQKq/EtUbm4S3MCZKKtfkLCrjXsqlPEqwxcOETUHj0wLARzb/2pGn8rYdWXNOBmoz85GRIv+YEFJnErexkuB8QmV5mAcR9PPgd3TmVwVwPFQFH1yfj63AxwydwE6eE03d9GdHBY6nqHGez88BbHAcC4yn5UOVTMMSOeV+P8TCE9EibUHZZQbQX/McEw4+TTQheWTxzgcEeJ309/0qQG1FauGTTniW8y05unocXSiBIiUgcQ+Jq9D5CvbYzg=
+  region: us-west-2
+  app: swe1-app
+  env: yfw215-swe1-app-ci
+  bucket_name: elasticbeanstalk-us-west-2-044932354998
+  on:
+    branch: main
